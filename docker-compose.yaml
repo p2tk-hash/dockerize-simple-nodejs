@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  node:
+    build: ./
+    networks:
+      - crud-network
+    volumes:
+      - /app:/vms/docker/nodejs/NodeJS-CRUD
+    ports:
+      - 3000:3000
+    container_name: node-crud
+    depends_on:
+      - mongodb
+  
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - data:/data/db
+    networks:
+      - crud-network
+    container_name: mongodb
+
+volumes:
+  data:
+networks:
+  crud-network:
